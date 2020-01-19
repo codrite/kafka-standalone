@@ -23,9 +23,9 @@ public class StandaloneConsumer {
         properties.put("group.id", "1");
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.setProperty("enable.auto.commit", "true");
-        properties.setProperty("auto.commit.interval.ms", "1000");
-        properties.setProperty("max.poll.records", "65000");
+        properties.put("enable.auto.commit", "true");
+        properties.put("auto.commit.interval.ms", "1000");
+        properties.put("max.poll.records", "65000");
 
         this.kafkaConsumer = new KafkaConsumer<>(properties);
 
