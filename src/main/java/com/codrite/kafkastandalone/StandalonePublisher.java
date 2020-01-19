@@ -38,8 +38,8 @@ public class StandalonePublisher {
         System.out.println("=============================================");
         System.out.println("Time to publish (ms) - " + (System.currentTimeMillis()-start));
         System.out.println("=============================================");
-        System.out.println("======Pausing for 5 seconds to display this message===");
-        Thread.sleep(5000);
+        System.out.println("Pausing for 15 seconds to display this message");
+        Thread.sleep(15000);
     }
 
     String fileContent() throws IOException {
