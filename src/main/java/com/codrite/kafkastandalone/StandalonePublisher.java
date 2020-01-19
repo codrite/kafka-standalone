@@ -16,7 +16,7 @@ public class StandalonePublisher {
 
     public StandalonePublisher() {
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "chiya:9092");
+        properties.put("bootstrap.servers", "localhost:9092");
         properties.put("acks", "all");
         properties.put("retries", 0);
         properties.put("linger.ms", 1);
