@@ -29,7 +29,7 @@ public class StandalonePublisher {
     public void start() throws IOException, InterruptedException {
         long start = System.currentTimeMillis();
 
-        ProducerRecord<String, String> producerRecord = new ProducerRecord("arnab", "key", fileContent());
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("arnab", "key", fileContent());
         for(int i = 0; i < 1000000; i++) {
             kafkaProducer.send(producerRecord);
         }
