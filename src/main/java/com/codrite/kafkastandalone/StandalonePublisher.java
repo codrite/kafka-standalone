@@ -5,7 +5,6 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
@@ -46,7 +45,5 @@ public class StandalonePublisher {
         ClassPathResource classPathResource = new ClassPathResource("message.json");
         return new String(Files.readAllBytes(Paths.get(classPathResource.getFile().getPath())));
     }
-
-
 
 }
