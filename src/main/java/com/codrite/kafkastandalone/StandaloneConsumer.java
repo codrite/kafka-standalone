@@ -13,13 +13,16 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class StandaloneConsumer {
 
+    private final int id;
     AtomicLong count = new AtomicLong(0);
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     KafkaConsumer<String, String> kafkaConsumer;
 
-    public StandaloneConsumer() throws InterruptedException {
+    public StandaloneConsumer(int id) {
+        this.id = id;
         Properties properties = new Properties();
         properties.put("bootstrap.servers", "localhost:9092");
+        properties.put("client.id", ""+id);
         properties.put("group.id", "1");
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
@@ -29,19 +32,20 @@ public class StandaloneConsumer {
 
         this.kafkaConsumer = new KafkaConsumer<>(properties);
 
-        executorService.scheduleAtFixedRate(new Listener(), 1000, 100, TimeUnit.MILLISECONDS);
+        executorService.scheduleAtFixedRate(new Listener(), 1000, 2000, TimeUnit.MILLISECONDS);
     }
 
     class Listener implements Runnable {
         public void run() {
-            kafkaConsumer.subscribe(Collections.singleton("arnab"));
+//            if(count.get() == 10) {
+//                return;
+//            }
+            kafkaConsumer.subscribe(Collections.singleton("demo"));
             ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(100));
 
-            System.out.println(">>> " + count.addAndGet(records.count()));
+            System.out.println(">>> " + id + " : " + count.addAndGet(records.count()));
 
-            if(count.get() == 1000000) {
-                System.out.println("Completed");
-            }
+
         }
     }
 

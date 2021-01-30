@@ -5,8 +5,10 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.Properties;
 
 public class StandalonePublisher {
@@ -26,24 +28,19 @@ public class StandalonePublisher {
         this.kafkaProducer = new KafkaProducer<>(properties);
     }
 
-    public void start() throws IOException, InterruptedException {
+    public void start() throws InterruptedException {
         long start = System.currentTimeMillis();
 
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("arnab", "key", fileContent());
-        for(int i = 0; i < 1000000; i++) {
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("demo", "key", "value");
+        for(int i = 0; i < 10; i++) {
             kafkaProducer.send(producerRecord);
         }
         kafkaProducer.close();
         System.out.println("=============================================");
         System.out.println("Time to publish (ms) - " + (System.currentTimeMillis()-start));
         System.out.println("=============================================");
-        System.out.println("Pausing for 15 seconds to display this message");
-        Thread.sleep(15000);
-    }
-
-    String fileContent() throws IOException {
-        ClassPathResource classPathResource = new ClassPathResource("message.json");
-        return new String(Files.readAllBytes(Paths.get(classPathResource.getFile().getPath())));
+        System.out.println("Pausing for 2 seconds to display this message");
+        Thread.sleep(2000);
     }
 
 }
