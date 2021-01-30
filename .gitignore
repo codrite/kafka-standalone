@@ -29,5 +29,9 @@ build/
 
 ### VS Code ###
 .vscode/
+.idea/*
+.mvn/
+target
+
 .idea/
 .mvn/
