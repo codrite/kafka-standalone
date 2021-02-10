@@ -1,14 +1,11 @@
-FROM alpine:3.7
+FROM openjdk:15-alpine
 
-RUN wget https://download.java.net/java/GA/jdk15/779bf45e88a44cbd9ea6621d33e33db1/36/GPL/openjdk-15_linux-x64_bin.tar.gz
-
-RUN tar xzf /openjdk-15_linux-x64_bin.tar.gz
-RUN mv jdk-15 /opt
-RUN rm -f /openjdk-15_linux-x64_bin.tar.gz
+RUN apk --no-cache add curl
+RUN apk --no-cache add dos2unix
+RUN apk --no-cache add bash
 
 COPY target/kafka-standalone-0.0.1-SNAPSHOT.jar /opt/kafka-spring-app.jar
 COPY src/main/resources/message.json /opt/message.json
-ENV PATH="${PATH}:/opt/jdk-15/bin:."
 
 EXPOSE 8080
 
